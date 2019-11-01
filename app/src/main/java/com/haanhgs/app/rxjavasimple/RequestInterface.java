@@ -1,7 +1,6 @@
 package com.haanhgs.app.rxjavasimple;
 
 import com.haanhgs.app.rxjavasimple.model.OpenWeather;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -14,4 +13,7 @@ public interface RequestInterface {
             @Query("lat") Double lat,
             @Query("lon") Double lon
     );
+
+//    @GET("weather/")
+//    Observabl
 }
