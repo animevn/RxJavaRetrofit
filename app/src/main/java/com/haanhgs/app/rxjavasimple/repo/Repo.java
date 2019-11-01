@@ -1,4 +1,4 @@
-package com.haanhgs.app.rxjavasimple;
+package com.haanhgs.app.rxjavasimple.repo;
 
 import android.content.Context;
 import java.text.SimpleDateFormat;

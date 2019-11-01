@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.haanhgs.app.rxjavasimple.model.ListHour;
+import com.haanhgs.app.rxjavasimple.repo.Repo;
+
 import java.util.List;
 import java.util.Locale;
 import androidx.annotation.NonNull;

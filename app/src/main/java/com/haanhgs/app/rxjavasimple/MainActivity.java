@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 import com.haanhgs.app.rxjavasimple.model.ListHour;
 import com.haanhgs.app.rxjavasimple.model.OpenWeather;
+import com.haanhgs.app.rxjavasimple.repo.RequestInterface;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import java.util.List;
 
@@ -37,7 +38,14 @@ public class MainActivity extends AppCompatActivity {
         rvMain.setHasFixedSize(true);
     }
 
-    private void handleResponse(OpenWeather weather) {
+    private RequestInterface initInterface(){
+        return new Retrofit.Builder().baseUrl(url)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build().create(RequestInterface.class);
+    }
+
+    private void handleHourlyForecast(OpenWeather weather) {
         this.weather = weather;
         adapter = new Adapter(this, weather.getList());
         rvMain.setAdapter(adapter);
@@ -47,16 +55,11 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Error " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
-    private void loadData(){
-        RequestInterface requestInterface = new Retrofit.Builder()
-                .baseUrl(url)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build().create(RequestInterface.class);
-        Disposable disposable = requestInterface.getHourlyWeather(API, lat, lon)
+    private void loadHourlyForecast(){
+        Disposable disposable = initInterface().getHourlyWeather(API, lat, lon)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(this::handleResponse, this::handleError);
+                .subscribe(this::handleHourlyForecast, this::handleError);
     }
 
     @Override
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initRecyclerView();
-        loadData();
+        loadHourlyForecast();
 
 
     }
