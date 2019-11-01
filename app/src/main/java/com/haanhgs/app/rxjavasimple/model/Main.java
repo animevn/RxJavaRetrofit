@@ -21,22 +21,6 @@ public class Main {
     @Expose
     private Double tempKf;
 
-//    @SerializedName("pressure")
-//    @Expose
-//    private Double pressure;
-//
-//    @SerializedName("sea_level")
-//    @Expose
-//    private Double seaLevel;
-//
-//    @SerializedName("grnd_level")
-//    @Expose
-//    private Double grndLevel;
-//
-//    @SerializedName("humidity")
-//    @Expose
-//    private Double humidity;
-
     public Double getTempC(){
         return temp - 273.15;
     }
@@ -88,6 +72,22 @@ public class Main {
     public void setTempKf(Double tempKf) {
         this.tempKf = tempKf;
     }
+
+//    @SerializedName("pressure")
+//    @Expose
+//    private Double pressure;
+//
+//    @SerializedName("sea_level")
+//    @Expose
+//    private Double seaLevel;
+//
+//    @SerializedName("grnd_level")
+//    @Expose
+//    private Double grndLevel;
+//
+//    @SerializedName("humidity")
+//    @Expose
+//    private Double humidity;
 
 //    public Double getPressure() {
 //        return pressure;

@@ -6,6 +6,32 @@ import com.google.gson.annotations.SerializedName;
 
 public class OpenWeather {
 
+    @SerializedName("list")
+    @Expose
+    private List<ListHour> list = null;
+
+    @SerializedName("city")
+    @Expose
+    private City city;
+
+    public List<ListHour> getList() {
+        return list;
+    }
+
+    public void setList(List<ListHour> list) {
+        this.list = list;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+
+
 //    @SerializedName("cod")
 //    @Expose
 //    private String cod;
@@ -18,13 +44,7 @@ public class OpenWeather {
 //    @Expose
 //    private Integer cnt;
 
-    @SerializedName("list")
-    @Expose
-    private List<ListHour> list = null;
 
-    @SerializedName("city")
-    @Expose
-    private City city;
 
 //    public String getCod() {
 //        return cod;
@@ -50,20 +70,5 @@ public class OpenWeather {
 //        this.cnt = cnt;
 //    }
 
-    public List<ListHour> getList() {
-        return list;
-    }
-
-    public void setList(List<ListHour> list) {
-        this.list = list;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
 
 }

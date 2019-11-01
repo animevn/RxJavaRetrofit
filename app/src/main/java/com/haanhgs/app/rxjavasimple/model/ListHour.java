@@ -22,24 +22,6 @@ public class ListHour {
     @Expose
     private String dtTxt;
 
-//    @SerializedName("clouds")
-//    @Expose
-//    private Clouds clouds;
-
-//    @SerializedName("wind")
-//    @Expose
-//    private Wind wind;
-
-//    @SerializedName("sys")
-//    @Expose
-//    private Sys sys;
-
-
-
-//    @SerializedName("rain")
-//    @Expose
-//    private Rain rain;
-
     public Double getDt() {
         return dt;
     }
@@ -71,6 +53,26 @@ public class ListHour {
     public void setDtTxt(String dtTxt) {
         this.dtTxt = dtTxt;
     }
+
+//    @SerializedName("clouds")
+//    @Expose
+//    private Clouds clouds;
+
+//    @SerializedName("wind")
+//    @Expose
+//    private Wind wind;
+
+//    @SerializedName("sys")
+//    @Expose
+//    private Sys sys;
+
+
+
+//    @SerializedName("rain")
+//    @Expose
+//    private Rain rain;
+
+
 
 //    public Clouds getClouds() {
 //        return clouds;

@@ -21,6 +21,7 @@ public class City {
     @Expose
     private String country;
 
+
     public Integer getId() {
         return id;
     }
