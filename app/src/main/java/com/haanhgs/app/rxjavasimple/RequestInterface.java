@@ -1,10 +1,17 @@
 package com.haanhgs.app.rxjavasimple;
 
-import java.util.List;
+import com.haanhgs.app.rxjavasimple.model.OpenWeather;
+
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface RequestInterface {
-    @GET("android/jsonarray/")
-    Observable<List<Android>> register();
+
+    @GET("forecast/")
+    Observable<OpenWeather> getHourlyWeather(
+            @Query("appid") String appid,
+            @Query("lat") Double lat,
+            @Query("lon") Double lon
+    );
 }

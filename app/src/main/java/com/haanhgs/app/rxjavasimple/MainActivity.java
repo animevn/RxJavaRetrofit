@@ -12,14 +12,20 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import android.os.Bundle;
 import android.widget.Toast;
+import com.haanhgs.app.rxjavasimple.model.ListHour;
+import com.haanhgs.app.rxjavasimple.model.OpenWeather;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String url = "https://api.learn2crack.com/";
-    private List<Android>list;
+    private static final String url = "https://api.openweathermap.org/data/2.5/";
+    private static final String API = "1a9dc82f0a3a7e535acb3ac84407ad81";
+    private static final double lat = 21.028511;
+    private static final double lon = 105.804817;
+
+    private OpenWeather weather;
+    private List<ListHour>list;
     private Adapter adapter;
     private RecyclerView rvMain;
     private CompositeDisposable composite;
@@ -31,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
         rvMain.setHasFixedSize(true);
     }
 
-    private void handleResponse(List<Android> androidList) {
-        list = new ArrayList<>(androidList);
-        adapter = new Adapter(list);
+    private void handleResponse(OpenWeather weather) {
+        this.weather = weather;
+        adapter = new Adapter(weather.getList());
         rvMain.setAdapter(adapter);
     }
 
@@ -47,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(RequestInterface.class);
-        Disposable disposable = requestInterface.register()
+        Disposable disposable = requestInterface.getHourlyWeather(API, lat, lon)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleResponse, this::handleError);

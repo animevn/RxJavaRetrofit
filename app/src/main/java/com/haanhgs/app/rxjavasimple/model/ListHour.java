@@ -1,14 +1,13 @@
-
 package com.haanhgs.app.rxjavasimple.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class List {
+public class ListHour {
 
     @SerializedName("dt")
     @Expose
-    private Integer dt;
+    private Double dt;
     @SerializedName("main")
     @Expose
     private Main main;
@@ -31,11 +30,11 @@ public class List {
     @Expose
     private Rain rain;
 
-    public Integer getDt() {
+    public Double getDt() {
         return dt;
     }
 
-    public void setDt(Integer dt) {
+    public void setDt(Double dt) {
         this.dt = dt;
     }
 

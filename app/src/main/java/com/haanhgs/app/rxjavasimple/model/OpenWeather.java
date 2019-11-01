@@ -1,6 +1,6 @@
-
 package com.haanhgs.app.rxjavasimple.model;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -17,7 +17,7 @@ public class OpenWeather {
     private Integer cnt;
     @SerializedName("list")
     @Expose
-    private java.util.List<List> list = null;
+    private List<ListHour> list = null;
     @SerializedName("city")
     @Expose
     private City city;
@@ -46,11 +46,11 @@ public class OpenWeather {
         this.cnt = cnt;
     }
 
-    public java.util.List<List> getList() {
+    public List<ListHour> getList() {
         return list;
     }
 
-    public void setList(java.util.List<List> list) {
+    public void setList(List<ListHour> list) {
         this.list = list;
     }
 

@@ -4,15 +4,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.haanhgs.app.rxjavasimple.model.ListHour;
 import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
-    private List<Android> list;
+    private List<ListHour> list;
 
-    public Adapter(List<Android> list) {
+    public Adapter(List<ListHour> list) {
         this.list = list;
     }
 
@@ -51,10 +52,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             initViews(itemView);
         }
 
-        public void bindHolder(Android android){
-            tvApi.setText(android.getApi());
-            tvName.setText(android.getName());
-            tvVer.setText(android.getVer());
+        public void bindHolder(ListHour listHour){
+            tvApi.setText(String.valueOf(listHour.getDt()));
+            tvName.setText(String.valueOf(listHour.getMain().getTempMax()));
+            tvVer.setText(String.valueOf(listHour.getMain().getTempMin()));
         }
     }
 }
