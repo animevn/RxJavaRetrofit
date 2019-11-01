@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.haanhgs.app.rxjavasimple.R;
@@ -18,9 +18,10 @@ import com.haanhgs.app.rxjavasimple.model.OpenWeather;
 import com.haanhgs.app.rxjavasimple.repo.Repo;
 import com.haanhgs.app.rxjavasimple.repo.RequestInterface;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -51,7 +52,10 @@ public class Home extends Fragment {
     private Context context;
     private List<ListHour> list;
     private RecyclerView rvMain;
+    private RecyclerView rvDay;
     private CompositeDisposable composite;
+
+    private List<ListHour> listDay;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -72,6 +76,12 @@ public class Home extends Fragment {
         rvMain = view.findViewById(R.id.rvHour);
         rvMain.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
         rvMain.setItemAnimator(new DefaultItemAnimator());
+
+        rvDay = view.findViewById(R.id.rvDay);
+        rvDay.setLayoutManager(new LinearLayoutManager(context));
+        rvDay.setItemAnimator(new DefaultItemAnimator());
+
+
     }
 
     private RequestInterface initInterface(){
@@ -82,9 +92,16 @@ public class Home extends Fragment {
     }
 
     private void handleHourlyForecast(OpenWeather weather) {
-        Adapter adapter = new Adapter(context, weather.getList());
+        AdapterHour adapter = new AdapterHour(context, weather.getList());
         rvMain.setAdapter(adapter);
-
+        listDay = new ArrayList<>();
+        for (int i = 0; i < weather.getList().size(); i++){
+            if (weather.getList().get(i).getDtTxt().contains("09:00:00")){
+                listDay.add(weather.getList().get(i));
+            }
+        }
+        AdapterDay adapterDay = new AdapterDay(context, listDay);
+        rvDay.setAdapter(adapterDay);
     }
 
     private void handleCurrentWeather(CurrentWeather weather){
