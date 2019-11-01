@@ -1,4 +1,4 @@
-package com.haanhgs.app.rxjavasimple;
+package com.haanhgs.app.rxjavasimple.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.haanhgs.app.rxjavasimple.R;
 import com.haanhgs.app.rxjavasimple.model.ListHour;
 import com.haanhgs.app.rxjavasimple.repo.Repo;
 
@@ -49,11 +50,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         private TextView tvMax;
         private TextView tvMin;
         private TextView tvTime;
+        private TextView tvHour;
         private ImageView ivIcon;
 
         private void initViews(View view){
             tvMax = view.findViewById(R.id.tvMax);
             tvTime = view.findViewById(R.id.tvTime);
+            tvHour = view.findViewById(R.id.tvHour);
             tvMin = view.findViewById(R.id.tvMin);
             ivIcon = view.findViewById(R.id.ivIcon);
         }
@@ -64,7 +67,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
 
         public void bindHolder(ListHour listHour){
-            tvTime.setText(Repo.convertEpocToDate(listHour.getDt()));
+            tvTime.setText(Repo.convertEpocToDay(listHour.getDt()));
+            tvHour.setText(Repo.convertEpocToDayHour(listHour.getDt()));
             tvMax.setText(String.format(Locale.getDefault(), "%.0f", listHour.getMain().getMaxC()));
             tvMin.setText(String.format(Locale.getDefault(), "%.0f", listHour.getMain().getMinC()));
             String img = listHour.getWeather().get(0).getIcon();
