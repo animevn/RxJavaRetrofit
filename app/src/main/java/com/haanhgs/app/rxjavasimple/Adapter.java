@@ -1,8 +1,10 @@
 package com.haanhgs.app.rxjavasimple;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.haanhgs.app.rxjavasimple.model.ListHour;
 import java.util.List;
@@ -12,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     private List<ListHour> list;
+    private Context context;
 
-    public Adapter(List<ListHour> list) {
+    public Adapter(Context context, List<ListHour> list) {
         this.list = list;
+        this.context = context;
     }
 
     @NonNull
@@ -37,14 +41,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvName;
-        private TextView tvVer;
-        private TextView tvApi;
+        private TextView tvMax;
+        private TextView tvMin;
+        private TextView tvTime;
+        private ImageView ivIcon;
 
         private void initViews(View view){
-            tvApi = view.findViewById(R.id.tvAPI);
-            tvName = view.findViewById(R.id.tvName);
-            tvVer = view.findViewById(R.id.tvVersion);
+            tvMax = view.findViewById(R.id.tvMax);
+            tvTime = view.findViewById(R.id.tvTime);
+            tvMin = view.findViewById(R.id.tvMin);
+            ivIcon = view.findViewById(R.id.ivIcon);
         }
 
         public ViewHolder(@NonNull View itemView) {
@@ -53,9 +59,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
 
         public void bindHolder(ListHour listHour){
-            tvApi.setText(String.valueOf(listHour.getDt()));
-            tvName.setText(String.valueOf(listHour.getMain().getTempMax()));
-            tvVer.setText(String.valueOf(listHour.getMain().getTempMin()));
+            tvTime.setText(Repo.convertEpocToDate(listHour.getDt()));
+            tvMax.setText(String.valueOf(listHour.getMain().getTempMax()));
+            tvMin.setText(String.valueOf(listHour.getMain().getTempMin()));
+            String img = listHour.getWeather().get(0).getIcon();
+            ivIcon.setImageResource(Repo.getId(context, img));
         }
     }
 }

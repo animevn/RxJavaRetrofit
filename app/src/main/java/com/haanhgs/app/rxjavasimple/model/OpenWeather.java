@@ -9,15 +9,19 @@ public class OpenWeather {
     @SerializedName("cod")
     @Expose
     private String cod;
+
     @SerializedName("message")
     @Expose
     private Double message;
+
     @SerializedName("cnt")
     @Expose
     private Integer cnt;
+
     @SerializedName("list")
     @Expose
     private List<ListHour> list = null;
+
     @SerializedName("city")
     @Expose
     private City city;

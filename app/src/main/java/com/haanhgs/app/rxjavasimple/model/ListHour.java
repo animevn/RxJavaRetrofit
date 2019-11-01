@@ -2,30 +2,38 @@ package com.haanhgs.app.rxjavasimple.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 public class ListHour {
 
     @SerializedName("dt")
     @Expose
     private Double dt;
+
     @SerializedName("main")
     @Expose
     private Main main;
+
     @SerializedName("weather")
     @Expose
-    private java.util.List<Weather> weather = null;
+    private List<Weather> weather = null;
+
     @SerializedName("clouds")
     @Expose
     private Clouds clouds;
+
     @SerializedName("wind")
     @Expose
     private Wind wind;
+
     @SerializedName("sys")
     @Expose
     private Sys sys;
+
     @SerializedName("dt_txt")
     @Expose
     private String dtTxt;
+
     @SerializedName("rain")
     @Expose
     private Rain rain;
@@ -46,11 +54,11 @@ public class ListHour {
         this.main = main;
     }
 
-    public java.util.List<Weather> getWeather() {
+    public List<Weather> getWeather() {
         return weather;
     }
 
-    public void setWeather(java.util.List<Weather> weather) {
+    public void setWeather(List<Weather> weather) {
         this.weather = weather;
     }
 

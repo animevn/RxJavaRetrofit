@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleResponse(OpenWeather weather) {
         this.weather = weather;
-        adapter = new Adapter(weather.getList());
+        adapter = new Adapter(this, weather.getList());
         rvMain.setAdapter(adapter);
     }
 
@@ -65,5 +65,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initRecyclerView();
         loadData();
+
+
     }
 }

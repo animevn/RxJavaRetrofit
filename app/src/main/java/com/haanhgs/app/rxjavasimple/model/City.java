@@ -8,12 +8,15 @@ public class City {
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("coord")
     @Expose
     private Coord coord;
+
     @SerializedName("country")
     @Expose
     private String country;

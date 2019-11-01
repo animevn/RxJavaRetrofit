@@ -8,6 +8,7 @@ public class Wind {
     @SerializedName("speed")
     @Expose
     private Double speed;
+
     @SerializedName("deg")
     @Expose
     private Double deg;
