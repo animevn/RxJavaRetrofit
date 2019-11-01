@@ -16,27 +16,29 @@ public class ListHour {
 
     @SerializedName("weather")
     @Expose
-    private List<Weather> weather = null;
-
-    @SerializedName("clouds")
-    @Expose
-    private Clouds clouds;
-
-    @SerializedName("wind")
-    @Expose
-    private Wind wind;
-
-    @SerializedName("sys")
-    @Expose
-    private Sys sys;
+    private List<Weather> weather;
 
     @SerializedName("dt_txt")
     @Expose
     private String dtTxt;
 
-    @SerializedName("rain")
-    @Expose
-    private Rain rain;
+//    @SerializedName("clouds")
+//    @Expose
+//    private Clouds clouds;
+
+//    @SerializedName("wind")
+//    @Expose
+//    private Wind wind;
+
+//    @SerializedName("sys")
+//    @Expose
+//    private Sys sys;
+
+
+
+//    @SerializedName("rain")
+//    @Expose
+//    private Rain rain;
 
     public Double getDt() {
         return dt;
@@ -62,30 +64,6 @@ public class ListHour {
         this.weather = weather;
     }
 
-    public Clouds getClouds() {
-        return clouds;
-    }
-
-    public void setClouds(Clouds clouds) {
-        this.clouds = clouds;
-    }
-
-    public Wind getWind() {
-        return wind;
-    }
-
-    public void setWind(Wind wind) {
-        this.wind = wind;
-    }
-
-    public Sys getSys() {
-        return sys;
-    }
-
-    public void setSys(Sys sys) {
-        this.sys = sys;
-    }
-
     public String getDtTxt() {
         return dtTxt;
     }
@@ -94,12 +72,39 @@ public class ListHour {
         this.dtTxt = dtTxt;
     }
 
-    public Rain getRain() {
-        return rain;
-    }
+//    public Clouds getClouds() {
+//        return clouds;
+//    }
+//
+//    public void setClouds(Clouds clouds) {
+//        this.clouds = clouds;
+//    }
+//
+//    public Wind getWind() {
+//        return wind;
+//    }
+//
+//    public void setWind(Wind wind) {
+//        this.wind = wind;
+//    }
 
-    public void setRain(Rain rain) {
-        this.rain = rain;
-    }
+
+//    public Sys getSys() {
+//        return sys;
+//    }
+//
+//    public void setSys(Sys sys) {
+//        this.sys = sys;
+//    }
+
+
+
+//    public Rain getRain() {
+//        return rain;
+//    }
+//
+//    public void setRain(Rain rain) {
+//        this.rain = rain;
+//    }
 
 }

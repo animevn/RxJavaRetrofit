@@ -17,25 +17,45 @@ public class Main {
     @Expose
     private Double tempMax;
 
-    @SerializedName("pressure")
-    @Expose
-    private Double pressure;
-
-    @SerializedName("sea_level")
-    @Expose
-    private Double seaLevel;
-
-    @SerializedName("grnd_level")
-    @Expose
-    private Double grndLevel;
-
-    @SerializedName("humidity")
-    @Expose
-    private Double humidity;
-
     @SerializedName("temp_kf")
     @Expose
     private Double tempKf;
+
+//    @SerializedName("pressure")
+//    @Expose
+//    private Double pressure;
+//
+//    @SerializedName("sea_level")
+//    @Expose
+//    private Double seaLevel;
+//
+//    @SerializedName("grnd_level")
+//    @Expose
+//    private Double grndLevel;
+//
+//    @SerializedName("humidity")
+//    @Expose
+//    private Double humidity;
+
+    public Double getTempC(){
+        return temp - 273.15;
+    }
+
+    public Double getMinC(){
+        return tempMin - 273.15;
+    }
+
+    public Double getMaxC(){
+        return tempMax - 273.15;
+    }
+
+    public Double getMinF(){
+        return getMinC() * 1.8 + 32;
+    }
+
+    public Double getMaxF(){
+        return getMaxC() * 1.8 + 32;
+    }
 
     public Double getTemp() {
         return temp;
@@ -61,38 +81,6 @@ public class Main {
         this.tempMax = tempMax;
     }
 
-    public Double getPressure() {
-        return pressure;
-    }
-
-    public void setPressure(Double pressure) {
-        this.pressure = pressure;
-    }
-
-    public Double getSeaLevel() {
-        return seaLevel;
-    }
-
-    public void setSeaLevel(Double seaLevel) {
-        this.seaLevel = seaLevel;
-    }
-
-    public Double getGrndLevel() {
-        return grndLevel;
-    }
-
-    public void setGrndLevel(Double grndLevel) {
-        this.grndLevel = grndLevel;
-    }
-
-    public Double getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(Double humidity) {
-        this.humidity = humidity;
-    }
-
     public Double getTempKf() {
         return tempKf;
     }
@@ -100,5 +88,37 @@ public class Main {
     public void setTempKf(Double tempKf) {
         this.tempKf = tempKf;
     }
+
+//    public Double getPressure() {
+//        return pressure;
+//    }
+//
+//    public void setPressure(Double pressure) {
+//        this.pressure = pressure;
+//    }
+//
+//    public Double getSeaLevel() {
+//        return seaLevel;
+//    }
+//
+//    public void setSeaLevel(Double seaLevel) {
+//        this.seaLevel = seaLevel;
+//    }
+//
+//    public Double getGrndLevel() {
+//        return grndLevel;
+//    }
+//
+//    public void setGrndLevel(Double grndLevel) {
+//        this.grndLevel = grndLevel;
+//    }
+//
+//    public Double getHumidity() {
+//        return humidity;
+//    }
+//
+//    public void setHumidity(Double humidity) {
+//        this.humidity = humidity;
+//    }
 
 }

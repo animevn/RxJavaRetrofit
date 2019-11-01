@@ -6,8 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.haanhgs.app.rxjavasimple.model.ListHour;
 import java.util.List;
+import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,10 +63,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         public void bindHolder(ListHour listHour){
             tvTime.setText(Repo.convertEpocToDate(listHour.getDt()));
-            tvMax.setText(String.valueOf(listHour.getMain().getTempMax()));
-            tvMin.setText(String.valueOf(listHour.getMain().getTempMin()));
+            tvMax.setText(String.format(Locale.getDefault(), "%.0f", listHour.getMain().getMaxC()));
+            tvMin.setText(String.format(Locale.getDefault(), "%.0f", listHour.getMain().getMinC()));
             String img = listHour.getWeather().get(0).getIcon();
-            ivIcon.setImageResource(Repo.getId(context, img));
+            int id = Repo.getId(context, img);
+            Glide.with(context).load("").apply(RequestOptions.placeholderOf(id)).into(ivIcon);
         }
     }
 }
