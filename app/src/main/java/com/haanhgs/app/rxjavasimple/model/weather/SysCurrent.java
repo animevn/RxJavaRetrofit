@@ -1,4 +1,4 @@
-package com.haanhgs.app.rxjavasimple.model;
+package com.haanhgs.app.rxjavasimple.model.weather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

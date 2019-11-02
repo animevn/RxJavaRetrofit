@@ -1,9 +1,9 @@
-package com.haanhgs.app.rxjavasimple.model;
+package com.haanhgs.app.rxjavasimple.model.weather;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MainCurrent {
+public class Main {
 
     @SerializedName("temp")
     @Expose
@@ -17,6 +17,10 @@ public class MainCurrent {
     @Expose
     private Double tempMax;
 
+    @SerializedName("temp_kf")
+    @Expose
+    private Double tempKf;
+
     public Double getTempC(){
         return temp - 273.15;
     }
@@ -29,12 +33,12 @@ public class MainCurrent {
         return tempMax - 273.15;
     }
 
-    public Double getTempF(){
-        return getTempC() * 1.8 + 32;
-    }
-
     public Double getMinF(){
         return getMinC() * 1.8 + 32;
+    }
+
+    public Double getMaxF(){
+        return getMaxC() * 1.8 + 32;
     }
 
     public Double getTemp() {
@@ -57,14 +61,22 @@ public class MainCurrent {
         return tempMax;
     }
 
+    public void setTempMax(Double tempMax) {
+        this.tempMax = tempMax;
+    }
+
+    public Double getTempKf() {
+        return tempKf;
+    }
+
+    public void setTempKf(Double tempKf) {
+        this.tempKf = tempKf;
+    }
+
 //    @SerializedName("pressure")
 //    @Expose
 //    private Double pressure;
-
-//    @SerializedName("humidity")
-//    @Expose
-//    private Integer humidity;
-
+//
 //    @SerializedName("sea_level")
 //    @Expose
 //    private Double seaLevel;
@@ -72,11 +84,11 @@ public class MainCurrent {
 //    @SerializedName("grnd_level")
 //    @Expose
 //    private Double grndLevel;
-
-//    public void setTempMax(Double tempMax) {
-//        this.tempMax = tempMax;
-//    }
 //
+//    @SerializedName("humidity")
+//    @Expose
+//    private Double humidity;
+
 //    public Double getPressure() {
 //        return pressure;
 //    }
@@ -84,15 +96,6 @@ public class MainCurrent {
 //    public void setPressure(Double pressure) {
 //        this.pressure = pressure;
 //    }
-//
-//    public Integer getHumidity() {
-//        return humidity;
-//    }
-//
-//    public void setHumidity(Integer humidity) {
-//        this.humidity = humidity;
-//    }
-//
 //
 //    public Double getSeaLevel() {
 //        return seaLevel;
@@ -108,6 +111,14 @@ public class MainCurrent {
 //
 //    public void setGrndLevel(Double grndLevel) {
 //        this.grndLevel = grndLevel;
+//    }
+//
+//    public Double getHumidity() {
+//        return humidity;
+//    }
+//
+//    public void setHumidity(Double humidity) {
+//        this.humidity = humidity;
 //    }
 
 }

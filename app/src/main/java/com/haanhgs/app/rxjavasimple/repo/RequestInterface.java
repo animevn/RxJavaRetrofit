@@ -1,7 +1,7 @@
 package com.haanhgs.app.rxjavasimple.repo;
 
-import com.haanhgs.app.rxjavasimple.model.CurrentWeather;
-import com.haanhgs.app.rxjavasimple.model.OpenWeather;
+import com.haanhgs.app.rxjavasimple.model.weather.CurrentWeather;
+import com.haanhgs.app.rxjavasimple.model.weather.OpenWeather;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
