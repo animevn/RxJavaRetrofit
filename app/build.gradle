@@ -52,7 +52,9 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     //dependencies for glide
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+
+    //dependencies for navigation
     implementation 'androidx.navigation:navigation-fragment:2.1.0'
     implementation 'androidx.navigation:navigation-ui:2.1.0'
 
