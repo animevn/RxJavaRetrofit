@@ -37,6 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -76,6 +77,7 @@ public class Home extends Fragment {
     ConstraintLayout clHome;
 
     private Context context;
+    private CompositeDisposable composite;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -88,13 +90,6 @@ public class Home extends Fragment {
         rvHour.setItemAnimator(new DefaultItemAnimator());
         rvDay.setLayoutManager(new LinearLayoutManager(context));
         rvDay.setItemAnimator(new DefaultItemAnimator());
-    }
-
-    private RequestInterface initInterface(String url) {
-        return new Retrofit.Builder().baseUrl(url)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build().create(RequestInterface.class);
     }
 
     private void handleHourlyForecast(OpenWeather weather) {
@@ -121,14 +116,7 @@ public class Home extends Fragment {
         Glide.with(context).load("").apply(RequestOptions.placeholderOf(id)).into(ivIconHome);
     }
 
-    private void handleFlickr(Flickr flickr) {
-        List<Photo> list = new ArrayList<>();
-        List<Photo> temp = flickr.getPhotos().getPhoto();
-        for (int i = 0; i < temp.size(); i++) {
-            if (temp.get(i).getIspublic() == 1) {
-                list.add(temp.get(i));
-            }
-        }
+    private String getImageUrl(List<Photo> list){
         String url = "";
         if (list.size() > 0) {
             int random = (new Random()).nextInt(list.size());
@@ -139,7 +127,18 @@ public class Home extends Fragment {
             url = "https://farm" + farm + ".staticflickr.com/" + server
                     + "/" + id + "_" + secret + ".jpg";
         }
-        Glide.with(context).load(Uri.parse(url)).into(new CustomTarget<Drawable>() {
+        return url;
+    }
+
+    private void handleFlickr(Flickr flickr) {
+        List<Photo> list = new ArrayList<>();
+        List<Photo> temp = flickr.getPhotos().getPhoto();
+        for (int i = 0; i < temp.size(); i++) {
+            if (temp.get(i).getIspublic() == 1) {
+                list.add(temp.get(i));
+            }
+        }
+        Glide.with(context).load(Uri.parse(getImageUrl(list))).into(new CustomTarget<Drawable>() {
             @Override
             public void onResourceReady(@NonNull Drawable resource,
                                         @Nullable Transition<? super Drawable> transition) {
@@ -148,6 +147,13 @@ public class Home extends Fragment {
 
             @Override public void onLoadCleared(@Nullable Drawable placeholder) {}
         });
+    }
+
+    private RequestInterface initInterface(String url) {
+        return new Retrofit.Builder().baseUrl(url)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build().create(RequestInterface.class);
     }
 
     private void handleError(Throwable error) {
@@ -159,6 +165,7 @@ public class Home extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleHourlyForecast, this::handleError);
+        composite.add(disposable);
     }
 
     private void loadCurrentWeather() {
@@ -166,6 +173,7 @@ public class Home extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleCurrentWeather, this::handleError);
+        composite.add(disposable);
     }
 
     private void loadFlickr() {
@@ -174,6 +182,7 @@ public class Home extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleFlickr, this::handleError);
+        composite.add(disposable);
     }
 
     @Nullable
@@ -183,10 +192,17 @@ public class Home extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
+        composite = new CompositeDisposable();
         initRecyclerView(view);
         loadHourlyForecast();
         loadCurrentWeather();
         loadFlickr();
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        composite.clear();
     }
 }
