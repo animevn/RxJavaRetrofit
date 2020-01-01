@@ -15,11 +15,13 @@ import java.util.List;
 import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class AdapterDay extends RecyclerView.Adapter<AdapterDay.ViewHolder> {
 
-    private Context context;
-    private List<ListHour> listDay;
+    private final Context context;
+    private final List<ListHour> listDay;
 
     public AdapterDay(Context context, List<ListHour> listDay) {
         this.context = context;
@@ -29,9 +31,8 @@ public class AdapterDay extends RecyclerView.Adapter<AdapterDay.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.fragment_home_recycler_day, parent, false);
-        return new ViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        return new ViewHolder(inflater.inflate(R.layout.recycler_day, parent, false));
     }
 
     @Override
@@ -46,22 +47,19 @@ public class AdapterDay extends RecyclerView.Adapter<AdapterDay.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvDay;
-        private TextView tvTemp;
-        private ImageView ivIconDay;
-
-        private void initViews(View view){
-            tvDay = view.findViewById(R.id.tvDay);
-            tvTemp = view.findViewById(R.id.tvTemp);
-            ivIconDay = view.findViewById(R.id.ivIconDay);
-        }
+        @BindView(R.id.tvDay)
+        TextView tvDay;
+        @BindView(R.id.tvTemp)
+        TextView tvTemp;
+        @BindView(R.id.ivIconDay)
+        ImageView ivIconDay;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            initViews(itemView);
+            ButterKnife.bind(this, itemView);
         }
 
-        public void bindHolder(ListHour listHour){
+        public void bindHolder(ListHour listHour) {
             tvDay.setText(Repo.convertEpocToDay(listHour.getDt()));
             String max = String.format(Locale.getDefault(), "%.0f", listHour.getMain().getMaxC());
             String min = String.format(Locale.getDefault(), "%.0f", listHour.getMain().getMinC());

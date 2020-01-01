@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.haanhgs.app.rxjavasimple.R;
 import com.haanhgs.app.rxjavasimple.model.flickr.Flickr;
@@ -26,12 +23,10 @@ import com.haanhgs.app.rxjavasimple.model.weather.OpenWeather;
 import com.haanhgs.app.rxjavasimple.repo.Repo;
 import com.haanhgs.app.rxjavasimple.repo.RequestInterface;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -39,9 +34,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import io.reactivex.Scheduler;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -61,20 +56,26 @@ public class Home extends Fragment {
     private static final String API = "1a9dc82f0a3a7e535acb3ac84407ad81";
     private static final double lat = 21.028511;
     private static final double lon = 105.804817;
-
-    private TextView tvDescription;
-    private TextView tvTemp;
-    private TextView tvMin;
-    private TextView tvMax;
-    private TextView tvCity;
-    private ImageView ivIconHome;
-    private ConstraintLayout clHome;
+    @BindView(R.id.tvDescription)
+    TextView tvDescription;
+    @BindView(R.id.ivIconHome)
+    ImageView ivIconHome;
+    @BindView(R.id.tvTemp)
+    TextView tvTemp;
+    @BindView(R.id.tvMin)
+    TextView tvMin;
+    @BindView(R.id.tvMax)
+    TextView tvMax;
+    @BindView(R.id.tvCity)
+    TextView tvCity;
+    @BindView(R.id.rvHour)
+    RecyclerView rvHour;
+    @BindView(R.id.rvDay)
+    RecyclerView rvDay;
+    @BindView(R.id.clHome)
+    ConstraintLayout clHome;
 
     private Context context;
-    private List<ListHour> list;
-    private RecyclerView rvMain;
-    private RecyclerView rvDay;
-    private CompositeDisposable composite;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -82,29 +83,14 @@ public class Home extends Fragment {
         this.context = context;
     }
 
-    private void initViews(View view){
-        tvDescription = view.findViewById(R.id.tvDescription);
-        tvTemp = view.findViewById(R.id.tvTemp);
-        tvMin = view.findViewById(R.id.tvMin);
-        tvMax = view.findViewById(R.id.tvMax);
-        tvCity = view.findViewById(R.id.tvCity);
-        ivIconHome = view.findViewById(R.id.ivIconHome);
-        clHome = view.findViewById(R.id.clHome);
-    }
-
-    private void initRecyclerView(View view){
-        rvMain = view.findViewById(R.id.rvHour);
-        rvMain.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-        rvMain.setItemAnimator(new DefaultItemAnimator());
-
-        rvDay = view.findViewById(R.id.rvDay);
+    private void initRecyclerView(View view) {
+        rvHour.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+        rvHour.setItemAnimator(new DefaultItemAnimator());
         rvDay.setLayoutManager(new LinearLayoutManager(context));
         rvDay.setItemAnimator(new DefaultItemAnimator());
-
-
     }
 
-    private RequestInterface initInterface(String url){
+    private RequestInterface initInterface(String url) {
         return new Retrofit.Builder().baseUrl(url)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -113,10 +99,10 @@ public class Home extends Fragment {
 
     private void handleHourlyForecast(OpenWeather weather) {
         AdapterHour adapter = new AdapterHour(context, weather.getList());
-        rvMain.setAdapter(adapter);
+        rvHour.setAdapter(adapter);
         List<ListHour> listDay = new ArrayList<>();
-        for (int i = 0; i < weather.getList().size(); i++){
-            if (weather.getList().get(i).getDtTxt().contains("09:00:00")){
+        for (int i = 0; i < weather.getList().size(); i++) {
+            if (weather.getList().get(i).getDtTxt().contains("09:00:00")) {
                 listDay.add(weather.getList().get(i));
             }
         }
@@ -124,7 +110,7 @@ public class Home extends Fragment {
         rvDay.setAdapter(adapterDay);
     }
 
-    private void handleCurrentWeather(CurrentWeather weather){
+    private void handleCurrentWeather(CurrentWeather weather) {
         tvCity.setText(weather.getName());
         tvTemp.setText(String.format(Locale.getDefault(), "%.0f", weather.getMain().getTempC()));
         tvMin.setText(String.format(Locale.getDefault(), "%.0f", weather.getMain().getMinC()));
@@ -135,16 +121,16 @@ public class Home extends Fragment {
         Glide.with(context).load("").apply(RequestOptions.placeholderOf(id)).into(ivIconHome);
     }
 
-    private void handleFlickr(Flickr flickr){
-        List<Photo>list = new ArrayList<>();
-        List<Photo>temp = flickr.getPhotos().getPhoto();
-        for (int i = 0; i < temp.size(); i++){
-            if (temp.get(i).getIspublic() == 1){
+    private void handleFlickr(Flickr flickr) {
+        List<Photo> list = new ArrayList<>();
+        List<Photo> temp = flickr.getPhotos().getPhoto();
+        for (int i = 0; i < temp.size(); i++) {
+            if (temp.get(i).getIspublic() == 1) {
                 list.add(temp.get(i));
             }
         }
         String url = "";
-        if (list.size() > 0){
+        if (list.size() > 0) {
             int random = (new Random()).nextInt(list.size());
             String farm = String.valueOf(list.get(random).getFarm());
             String server = list.get(random).getServer();
@@ -153,41 +139,36 @@ public class Home extends Fragment {
             url = "https://farm" + farm + ".staticflickr.com/" + server
                     + "/" + id + "_" + secret + ".jpg";
         }
-        Glide.with(context)
-                .load(Uri.parse(url))
-                .into(new CustomTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource,
-                                                @Nullable Transition<? super Drawable> transition){
-                        clHome.setBackground(resource);
-                    }
+        Glide.with(context).load(Uri.parse(url)).into(new CustomTarget<Drawable>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource,
+                                        @Nullable Transition<? super Drawable> transition) {
+                clHome.setBackground(resource);
+            }
 
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                    }
-                });
+            @Override public void onLoadCleared(@Nullable Drawable placeholder) {}
+        });
     }
 
     private void handleError(Throwable error) {
         Toast.makeText(context, "Error " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
-    private void loadHourlyForecast(){
+    private void loadHourlyForecast() {
         Disposable disposable = initInterface(WEATHER_URL).getHourlyWeather(API, lat, lon)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleHourlyForecast, this::handleError);
     }
 
-    private void loadCurrentWeather(){
+    private void loadCurrentWeather() {
         Disposable disposable = initInterface(WEATHER_URL).getCurrentWeather(API, lat, lon)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::handleCurrentWeather, this::handleError);
     }
 
-    private void loadFlickr(){
+    private void loadFlickr() {
         Disposable disposable = initInterface(FLICKR_URL)
                 .getFlickr(METHOD, GROUP, FLICKR_API, lat, lon, RADIUS, FORMAT, NOJSONCALLBACK)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -201,8 +182,8 @@ public class Home extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this, view);
         initRecyclerView(view);
-        initViews(view);
         loadHourlyForecast();
         loadCurrentWeather();
         loadFlickr();

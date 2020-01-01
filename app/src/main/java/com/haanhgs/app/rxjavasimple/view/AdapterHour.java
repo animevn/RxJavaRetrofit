@@ -11,16 +11,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.haanhgs.app.rxjavasimple.R;
 import com.haanhgs.app.rxjavasimple.model.weather.ListHour;
 import com.haanhgs.app.rxjavasimple.repo.Repo;
-
 import java.util.List;
 import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class AdapterHour extends RecyclerView.Adapter<AdapterHour.ViewHolder> {
 
-    private List<ListHour> list;
-    private Context context;
+    private final List<ListHour> list;
+    private final Context context;
 
     public AdapterHour(Context context, List<ListHour> list) {
         this.list = list;
@@ -30,9 +31,8 @@ public class AdapterHour extends RecyclerView.Adapter<AdapterHour.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_home_recycler_hour, parent, false);
-        return new ViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        return new ViewHolder(inflater.inflate(R.layout.recycler_hour, parent, false));
     }
 
     @Override
@@ -47,26 +47,23 @@ public class AdapterHour extends RecyclerView.Adapter<AdapterHour.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvMax;
-        private TextView tvMin;
-        private TextView tvTime;
-        private TextView tvHour;
-        private ImageView ivIcon;
-
-        private void initViews(View view){
-            tvMax = view.findViewById(R.id.tvMax);
-            tvTime = view.findViewById(R.id.tvTime);
-            tvHour = view.findViewById(R.id.tvHour);
-            tvMin = view.findViewById(R.id.tvMin);
-            ivIcon = view.findViewById(R.id.ivIcon);
-        }
+        @BindView(R.id.tvTime)
+        TextView tvTime;
+        @BindView(R.id.tvHour)
+        TextView tvHour;
+        @BindView(R.id.tvMin)
+        TextView tvMin;
+        @BindView(R.id.tvMax)
+        TextView tvMax;
+        @BindView(R.id.ivIcon)
+        ImageView ivIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            initViews(itemView);
+            ButterKnife.bind(this, itemView);
         }
 
-        public void bindHolder(ListHour listHour){
+        public void bindHolder(ListHour listHour) {
             tvTime.setText(Repo.convertEpocToDay(listHour.getDt()));
             tvHour.setText(Repo.convertEpocToDayHour(listHour.getDt()));
             tvMax.setText(String.format(Locale.getDefault(), "%.0f", listHour.getMain().getMaxC()));
