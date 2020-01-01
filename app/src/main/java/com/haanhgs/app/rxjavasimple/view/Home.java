@@ -21,8 +21,6 @@ import com.haanhgs.app.rxjavasimple.model.weather.CurrentWeather;
 import com.haanhgs.app.rxjavasimple.model.weather.ListHour;
 import com.haanhgs.app.rxjavasimple.model.weather.OpenWeather;
 import com.haanhgs.app.rxjavasimple.repo.Repo;
-import com.haanhgs.app.rxjavasimple.repo.RequestInterface;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -40,8 +38,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.haanhgs.app.rxjavasimple.repo.Repo.initInterface;
 
 public class Home extends Fragment {
 
@@ -147,13 +145,6 @@ public class Home extends Fragment {
 
             @Override public void onLoadCleared(@Nullable Drawable placeholder) {}
         });
-    }
-
-    private RequestInterface initInterface(String url) {
-        return new Retrofit.Builder().baseUrl(url)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build().create(RequestInterface.class);
     }
 
     private void handleError(Throwable error) {

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="IconDuplicates">
+        <ignore path="src/main/res/drawable/i03d.png" />
+        <ignore path="src/main/res/drawable/i03n.png" />
+        <ignore path="src/main/res/drawable/i04d.png" />
+        <ignore path="src/main/res/drawable/i04n.png" />
+        <ignore path="src/main/res/drawable/i09d.png" />
+        <ignore path="src/main/res/drawable/i09d.png" />
+        <ignore path="src/main/res/drawable/i09n.png" />
+        <ignore path="src/main/res/drawable/i11d.png" />
+        <ignore path="src/main/res/drawable/i11n.png" />
+        <ignore path="src/main/res/drawable/i13d.png" />
+        <ignore path="src/main/res/drawable/i13n.png" />
+        <ignore path="src/main/res/drawable/i50d.png" />
+        <ignore path="src/main/res/drawable/i50n.png" />
+    </issue>
+    <issue id="IconLocation">
+        <ignore path="src/main/res/drawable/i01d.png" />
+        <ignore path="src/main/res/drawable/i01n.png" />
+        <ignore path="src/main/res/drawable/i02d.png" />
+        <ignore path="src/main/res/drawable/i02n.png" />
+        <ignore path="src/main/res/drawable/i03d.png" />
+        <ignore path="src/main/res/drawable/i03n.png" />
+        <ignore path="src/main/res/drawable/i04d.png" />
+        <ignore path="src/main/res/drawable/i04n.png" />
+        <ignore path="src/main/res/drawable/i09d.png" />
+        <ignore path="src/main/res/drawable/i09n.png" />
+        <ignore path="src/main/res/drawable/i10d.png" />
+        <ignore path="src/main/res/drawable/i10n.png" />
+        <ignore path="src/main/res/drawable/i11d.png" />
+        <ignore path="src/main/res/drawable/i11n.png" />
+        <ignore path="src/main/res/drawable/i13d.png" />
+        <ignore path="src/main/res/drawable/i13n.png" />
+        <ignore path="src/main/res/drawable/i50d.png" />
+        <ignore path="src/main/res/drawable/i50n.png" />
+    </issue>
+</lint>
