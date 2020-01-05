@@ -126,4 +126,31 @@
         app:layout_constraintStart_toStartOf="@+id/ivIconHome"
         app:layout_constraintTop_toTopOf="@+id/tvMax" />
 
+    <ImageButton
+        android:id="@+id/ibRefresh"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/holder"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/tvTemp"
+        app:layout_constraintEnd_toStartOf="@+id/ibLocation"
+        app:layout_constraintStart_toEndOf="@+id/ivIconHome"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+        app:srcCompat="@drawable/refresh" />
+
+    <ImageButton
+        android:id="@+id/ibLocation"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/holder"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/tvTemp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ibRefresh"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+        app:srcCompat="@drawable/refresh" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
