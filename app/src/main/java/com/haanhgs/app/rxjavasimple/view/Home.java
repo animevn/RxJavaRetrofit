@@ -96,11 +96,8 @@ public class Home extends Fragment {
     private static final int GRANTED = PackageManager.PERMISSION_GRANTED;
 
     private FusedLocationProviderClient fusedLocationClient;
-
     private LocationCallback locationCallback;
     private boolean isTracking = true;
-
-    private Location location;
     private double lat;
     private double lon;
 
